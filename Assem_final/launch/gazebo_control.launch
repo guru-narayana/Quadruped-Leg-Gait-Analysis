@@ -1,0 +1,31 @@
+<launch>
+  <param name="robot_description" textfile="$(find Assem_final)/urdf/Assem_final.urdf" />
+  <rosparam file="$(find Assem_final)/config/config.yaml" command="load"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    </include>
+  
+  <node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-file $(find Assem_final)/urdf/Assem_final.urdf -urdf -model leg_sim 
+    -J J1 -1.152
+    -J J2 2.193"
+    output="screen" />
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/leg_sim" args="
+    J1_position_controller 
+    J2_position_controller
+    joint_state_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/leg_sim/joint_states" />
+  </node>
+
+</launch>

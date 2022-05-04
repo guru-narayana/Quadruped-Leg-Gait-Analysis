@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Assem_final">
+
+  <link name = "world">
+  </link>
+
+  <joint
+    name="J0"
+    type="prismatic">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+
+    <limit effort="0" velocity="9000.0" lower="0.0" upper="0.7" />
+    <parent
+      link="world" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0382588932821924 0.0535806284264134 0.0459723235898436"
+        rpy="0 0 0" />
+      <mass
+        value="0.986212675679095" />
+      <inertia
+        ixx="0.00042849081010819"
+        ixy="-8.83634264761844E-07"
+        ixz="-5.25192235662999E-07"
+        iyy="0.0018100821435672"
+        iyz="3.4294164006644E-06"
+        izz="0.00186279127314736" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="L1">
+    <inertial>
+      <origin
+        xyz="8.40129426049677E-05 0.0369198769089664 0.165494206593458"
+        rpy="0 0 0" />
+      <mass
+        value="0.498165904436461" />
+      <inertia
+        ixx="0.000472806717582506"
+        ixy="5.25195545344476E-07"
+        ixz="-8.83636861611358E-07"
+        iyy="0.000568689072913643"
+        iyz="-8.10645976956936E-06"
+        izz="0.000393281710139591" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/L1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/L1.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="J1"
+    type="continuous">
+    <origin
+      xyz="0.03819115484122 0.00762393016926217 0.0732791643351732"
+      rpy="3.14159265358975 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="L1" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+
+  <link
+    name="L2">
+    <inertial>
+      <origin
+        xyz="0.000920993042551568 0.00250852605885983 0.0794638442103484"
+        rpy="0 0 0" />
+      <mass
+        value="0.0338520299962381" />
+      <inertia
+        ixx="0.00011588001578817"
+        ixy="2.65821064558176E-10"
+        ixz="-2.18049576158245E-06"
+        iyy="0.000121119383130265"
+        iyz="2.29352043784563E-08"
+        izz="5.38022012915508E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/L2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Assem_final/meshes/L2.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="J2"
+    type="continuous">
+    <origin
+      xyz="0 0.0765830000000001 0.169999999999996"
+      rpy="0 0 0" />
+    <parent
+      link="L1" />
+    <child
+      link="L2" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+
+
+  <gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/leg_sim</robotNamespace>
+    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+  </plugin>
+  </gazebo>
+
+
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor1">
+      <mechanicalReduction>1</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+    <joint name="J1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="motor2">
+      <mechanicalReduction>1</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+    <joint name="J2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+  <gazebo reference="L1">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+    <gazebo reference="L2">
+    <mu1>1000000000000000.0</mu1>
+    <mu2>1000000000000000.0</mu2>
+    <kp  value="1e+13"/>
+    <kd  value="100.0"/>
+    <material>Gazebo/Blue</material>
+  </gazebo>
+</robot>
