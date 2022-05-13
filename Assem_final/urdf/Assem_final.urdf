@@ -207,15 +207,15 @@
     </joint>
   </transmission>
 
-
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+  </gazebo>
   <gazebo reference="L1">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/White</material>
   </gazebo>
     <gazebo reference="L2">
     <mu1>1000000000000000.0</mu1>
     <mu2>1000000000000000.0</mu2>
-    <kp  value="1e+13"/>
-    <kd  value="100.0"/>
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/White</material>
   </gazebo>
 </robot>
